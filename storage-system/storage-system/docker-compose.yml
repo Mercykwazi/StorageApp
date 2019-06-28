@@ -1,0 +1,18 @@
+version: "2"
+services:
+  practice_docker: 
+    image: dockerhubusername/practice_docker
+    ports: 
+      - 80:3000
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; npm start'
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgres://postgres:Gugulethu@localhost:5432/storage
+      - PORT=3003   
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Gugulethu
+      - POSTGRES_DB=storage

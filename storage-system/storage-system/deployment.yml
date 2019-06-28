@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: storage-system-postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: storage-system-postgres
+  template:
+    metadata:
+      labels:
+        app: storage-system-postgres
+    spec:
+      containers:
+        - name: postgres-app
+          image: postgres
+          ports:
+            - containerPort: 8096
+
+    

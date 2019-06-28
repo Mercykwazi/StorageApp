@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: mercy-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  tls: 
+  - hosts:
+    - mercy.thecodingground.com
+    secretName: tls-secret
+  rules:
+  - host: mercy.thecodingground.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: storage-app-ui
+          servicePort: 30003
+      - path: /api/?(.*)
+        backend:
+          serviceName: express-app
+          servicePort: 8081
+
+
+    

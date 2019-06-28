@@ -1,0 +1,32 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: storage-system-express
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      app: storage-system-express
+  template:
+    metadata:
+      labels:
+        app: storage-system-express
+    spec:
+      containers:
+        - name: express-app
+          image: mercykwazi/new-express
+          ports:
+            - containerPort: 8081
+          env:
+            - name: HOST
+              value: postgres
+            - name: POSTGRES_USER
+              value: postgres
+            - name: PORT
+              value: '5432'
+            - name: DATABASE
+              value: storage
+            - name:  PASSWORD
+              value: Gugulethu
+            - name:  JWT_SECRET
+              value: mercy
